@@ -133,6 +133,21 @@ class OwnerController {
 		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
 	}
 
+	@GetMapping("/dashboard")
+	public String dashboard(@RequestParam(name = "city", required = false) String city, Model model) {
+		int numOwners = 0;
+
+		if (city != null) {
+			numOwners = this.owners.countOwnersByCity(city);
+		}
+		model.addAttribute("city", city);
+		model.addAttribute("numOwners", numOwners);
+		int numCities = this.owners.countDistinctCities();
+		model.addAttribute("numCities", numCities);
+
+		return "dashboard";
+	}
+
 	@PostMapping("/owners/{ownerId}/edit")
 	public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result,
 			@PathVariable("ownerId") int ownerId) {

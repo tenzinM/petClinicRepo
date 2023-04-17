@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'dashboard')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+    <h1>Dashboard</h1>
+    <form action="#" th:action="@{/dashboard}" th:method="get">
+        <label for="city">enter a city name:</label>
+        <input type="text" id="city-input" name="city">
+        <button type="submit" >enter</button>
+    </form>
+
+    <!-- <p>Number of Owners in {{city}}: {{numOwners}}</p> -->
+    <h2 th:if="${numOwners != null}">Number of owners in [[${city}]]: [[${numOwners}]]</h2>
+    <h2 th:if="${numCities != null}">Number of city in Database : [[${numCities}]]</h2>
+    <div id="dashboard-data"></div>
+</body>
+</html>

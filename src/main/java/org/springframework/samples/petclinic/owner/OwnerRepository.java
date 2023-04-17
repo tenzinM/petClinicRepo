@@ -66,6 +66,12 @@ public interface OwnerRepository extends Repository<Owner, Integer> {
 	@Transactional(readOnly = true)
 	Owner findById(@Param("id") Integer id);
 
+	@Query("SELECT COUNT(DISTINCT o.city) FROM Owner o")
+	public int countDistinctCities();
+
+	@Query("SELECT COUNT(o) FROM Owner o WHERE o.city = :city")
+	public int countOwnersByCity(@Param("city") String city);
+
 	/**
 	 * Save an {@link Owner} to the data store, either inserting or updating it.
 	 * @param owner the {@link Owner} to save
